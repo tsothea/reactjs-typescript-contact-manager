@@ -1,4 +1,4 @@
-import { PersonType, StateType } from "../CustomTypes";
+import {CompanyType, PersonType, StateType} from "../CustomTypes";
 
 const initialState: StateType = {
   people: [],
@@ -36,8 +36,8 @@ const searchbyLocation = (person: PersonType, location: string) => {
 };
 
 const reducer = (state: StateType = initialState, action: any) => {
-  let people = [];
-  let companies = [];
+  let people: PersonType[] = [];
+  let companies: CompanyType[] = [];
   switch (action.type) {
     case process.env.REACT_APP_GET_PEOPLE:
       return {
@@ -49,7 +49,7 @@ const reducer = (state: StateType = initialState, action: any) => {
       if (action.payload.param === "") {
         people = state.listPeople;
       } else {
-        people = state.listPeople.filter((person) => {
+        people = state.listPeople.filter((person: PersonType) => {
           if (
             searchContact(person, action.payload.param.toLowerCase()) &&
             searchbyLocation(person, state.location)
@@ -95,7 +95,7 @@ const reducer = (state: StateType = initialState, action: any) => {
         people,
       };
     case process.env.REACT_APP_ADD_FAVOURITE:
-      people = state.listPeople.filter((person) => {
+      people = state.listPeople.filter((person: PersonType) => {
         if (person.key === action.payload.key) {
           person["isFavourite"] = true;
         }
@@ -110,7 +110,7 @@ const reducer = (state: StateType = initialState, action: any) => {
         people,
       };
     case process.env.REACT_APP_REMOVE_FAVOURITE:
-      people = state.listPeople.filter((person) => {
+      people = state.listPeople.filter((person: PersonType) => {
         if (person.key === action.payload.key) {
           person["isFavourite"] = false;
         }
@@ -128,7 +128,7 @@ const reducer = (state: StateType = initialState, action: any) => {
       if (action.payload.location === "") {
         people = state.listPeople;
       } else {
-        people = state.listPeople.filter((person) => {
+        people = state.listPeople.filter((person: PersonType) => {
           if (
             searchContact(person, state.search.toLowerCase()) &&
             searchbyLocation(person, action.payload.location)
@@ -163,7 +163,7 @@ const reducer = (state: StateType = initialState, action: any) => {
         companies: action.payload.companies,
       };
     case process.env.REACT_APP_DELETE_COMPANY:
-      companies = state.companies.filter((company) => {
+      companies = state.companies.filter((company: CompanyType) => {
         if (company.key !== action.payload.key) {
           return company;
         }
@@ -188,11 +188,6 @@ const reducer = (state: StateType = initialState, action: any) => {
       return {
         ...state,
         people,
-      };
-    case process.env.REACT_APP_EDIT_CONTACT:
-      return {
-        ...state,
-        companies: action.payload.company,
       };
     default:
       return {

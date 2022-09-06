@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Company from "../components/Company";
 import Modal from "react-modal";
 import { addNewCompany } from "../service";
-import {CompanyType, PersonType, StateType} from "../CustomTypes";
+import {CompanyType, StateType} from "../CustomTypes";
 
 Modal.setAppElement(
     document.getElementById("root") as HTMLElement
